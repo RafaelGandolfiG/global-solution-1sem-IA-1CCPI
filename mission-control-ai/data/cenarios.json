@@ -1,0 +1,67 @@
+[
+    {
+        "nome": "Operacao Normal",
+
+        "temperatura_payload": 42,
+        "energia_disponivel": 87,
+        "comunicacao": 1,
+        "buffer_imagens": 28,
+        "precisao_geolocalizacao": 2.4,
+        "focos_termicos_detectados": 1
+    },
+
+    {
+        "nome": "Focos de Incendio",
+
+        "temperatura_payload": 79,
+        "energia_disponivel": 63,
+        "comunicacao": 1,
+        "buffer_imagens": 76,
+        "precisao_geolocalizacao": 4.1,
+        "focos_termicos_detectados": 13
+    },
+
+    {
+        "nome": "Superaquecimento do Payload",
+
+        "temperatura_payload": 92,
+        "energia_disponivel": 58,
+        "comunicacao": 1,
+        "buffer_imagens": 70,
+        "precisao_geolocalizacao": 5.7,
+        "focos_termicos_detectados": 6
+    },
+
+    {
+        "nome": "Falha de Comunicacao",
+
+        "temperatura_payload": 51,
+        "energia_disponivel": 44,
+        "comunicacao": 0,
+        "buffer_imagens": 61,
+        "precisao_geolocalizacao": 9.5,
+        "focos_termicos_detectados": 2
+    },
+
+    {
+        "nome": "Energia Critica",
+
+        "temperatura_payload": 66,
+        "energia_disponivel": 11,
+        "comunicacao": 1,
+        "buffer_imagens": 83,
+        "precisao_geolocalizacao": 7.2,
+        "focos_termicos_detectados": 5
+    },
+
+    {
+        "nome": "Falha Critica Geral",
+
+        "temperatura_payload": 97,
+        "energia_disponivel": 8,
+        "comunicacao": 0,
+        "buffer_imagens": 97,
+        "precisao_geolocalizacao": 19.4,
+        "focos_termicos_detectados": 15
+    }
+]
