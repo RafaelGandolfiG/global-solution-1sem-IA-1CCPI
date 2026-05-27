@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 from src.telemetria import coletar
-from src.alertas import avaliar
 
 load_dotenv()
 
@@ -18,9 +17,11 @@ client = Client(host=host)
 
 
 def llm(prompt, system=None, max_tokens=800, temperature=0.3):
+
     messages = []
 
     if system:
+
         messages.append({
             "role": "system",
             "content": system
@@ -32,6 +33,7 @@ def llm(prompt, system=None, max_tokens=800, temperature=0.3):
     })
 
     try:
+
         response = client.chat(
             model=model,
             messages=messages,
@@ -44,14 +46,19 @@ def llm(prompt, system=None, max_tokens=800, temperature=0.3):
         return response["message"]["content"]
 
     except Exception as e:
+
         return f"⚠️ Erro ao consultar IA: {e}"
 
 
 def load_system_prompt():
+
     path = Path("prompts/system_prompt.md")
 
     if path.exists():
-        return path.read_text(encoding="utf-8")
+
+        return path.read_text(
+            encoding="utf-8"
+        )
 
     return "Você é um assistente."
 
@@ -59,39 +66,105 @@ def load_system_prompt():
 class MissionEngine:
 
     def __init__(self):
+
         self.trilha = TRILHA
         self.system_prompt = load_system_prompt()
         self.dados_atuais = coletar()
 
     def is_ready(self):
+
         return True
 
     def gerar_nova_telemetria(self):
-        self.dados_atuais = coletar()
+
+        self.dados_atuis = coletar()
+
         return self.dados_atuais
 
     def status_snapshot(self):
+
+        from src.alertas import avaliar
+
         dados = self.dados_atuais
+
         alertas = avaliar(dados)
 
         status = (
+
             f"🛰️ Trilha: {self.trilha}\n\n"
 
-            f"🌡️ Temperatura: {dados['temperatura_payload']}°C\n"
-            f"⚡ Energia: {dados['energia_disponivel']}%\n"
-            f"📡 Comunicação: {'ONLINE' if dados['comunicacao'] == 1 else 'OFFLINE'}\n"
-            f"🗂️ Buffer de imagens: {dados['buffer_imagens']}%\n"
-            f"📍 Precisão geolocalização: {dados['precisao_geolocalizacao']} m\n"
-            f"🔥 Focos térmicos: {dados['focos_termicos_detectados']}\n\n"
+            f"🌡️ Temperatura: "
+            f"{dados['temperatura_payload']}°C\n"
+
+            f"⚡ Energia: "
+            f"{dados['energia_disponivel']}%\n"
+
+            f"📡 Comunicação: "
+            f"{'ONLINE' if dados['comunicacao'] == 1 else 'OFFLINE'}\n"
+
+            f"🗂️ Buffer de imagens: "
+            f"{dados['buffer_imagens']}%\n"
+
+            f"📍 Precisão geolocalização: "
+            f"{dados['precisao_geolocalizacao']} m\n"
+
+            f"🔥 Focos térmicos: "
+            f"{dados['focos_termicos_detectados']}\n\n"
 
             f"⚠️ Alertas:\n"
             f"{chr(10).join(alertas)}"
+
         )
 
         return status
 
     def analyze(self, pergunta_usuario):
+
+        # Guardrail contra prompt injection
+        # e assuntos fora da missão
+
+        palavras_missao = [
+
+            "missao",
+            "satelite",
+            "telemetria",
+            "alerta",
+            "energia",
+            "temperatura",
+            "comunicacao",
+            "payload",
+            "focos",
+            "orbital",
+            "ambiental",
+            "envirosat",
+            "risco",
+            "status",
+            "operacional"
+
+        ]
+
+        texto = pergunta_usuario.lower()
+
+        permitido = False
+
+        for palavra in palavras_missao:
+
+            if palavra in texto:
+
+                permitido = True
+                break
+
+        if not permitido:
+
+            return (
+                "Solicitação fora do escopo operacional "
+                "da missão EnviroSat."
+            )
+
+        from src.alertas import avaliar
+
         dados = self.dados_atuais
+
         alertas = avaliar(dados)
 
         prompt = f"""
