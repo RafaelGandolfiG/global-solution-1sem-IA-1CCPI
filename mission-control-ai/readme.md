@@ -72,7 +72,10 @@ mission-control-ai/
 │   └── alertas.py
 │
 ├── prompts/
-│   └── system_prompt.md
+│   ├── system_prompt.md
+│   ├── system_prompt_v1.md
+│   ├── system_prompt_v2.md
+│   └── system_prompt_v3.md
 │
 ├── data/
 │   └── cenarios.json
@@ -165,6 +168,10 @@ python main.py
 
 ✅ Banner ASCII personalizado
 
+✅ Guardrails contra prompt injection
+
+✅ Validação operacional da telemetria
+
 ---
 
 # 📊 Telemetria monitorada
@@ -189,6 +196,11 @@ O sistema identifica automaticamente:
 - energia crítica
 - buffer elevado
 - múltiplos focos térmicos
+
+O sistema também utiliza níveis de severidade:
+- INFO
+- WARNING
+- CRITICAL
 
 ---
 
@@ -216,6 +228,54 @@ Outro fator importante foi a facilidade de integração com Python através da b
 
 ---
 
+# 🧪 Evolução dos prompts
+
+O projeto utiliza versionamento de prompts para demonstrar a evolução da engenharia de prompt aplicada ao sistema.
+
+## system_prompt_v1.md
+Versão inicial contendo:
+- papel básico da IA
+- contexto da missão
+- estrutura de resposta
+
+## system_prompt_v2.md
+Versão intermediária adicionando:
+- thresholds operacionais
+- níveis de severidade
+- guardrails básicos
+- redução de hallucination
+
+## system_prompt_v3.md
+Versão final contendo:
+- schema formal da telemetria
+- anti prompt injection
+- proteção contra telemetria maliciosa
+- política de prioridade operacional
+- tratamento de inconsistências
+- regras anti-hallucination
+- restrições de domínio
+
+O arquivo `system_prompt.md` utiliza a versão final mais robusta do sistema.
+
+---
+
+# 🔐 Segurança e guardrails
+
+O projeto implementa mecanismos de segurança para reduzir:
+- prompt injection
+- hallucination
+- mudança indevida de contexto
+- telemetria maliciosa
+- sobrescrita de regras operacionais
+
+O sistema:
+- bloqueia assuntos fora da missão
+- ignora instruções maliciosas
+- valida inconsistências na telemetria
+- impede respostas fora do domínio EnviroSat
+
+---
+
 # 🧪 Cenários de teste demonstrados
 
 ## 1. Operação normal
@@ -232,6 +292,9 @@ Múltiplos focos térmicos detectados.
 
 ## 5. Falha crítica geral
 Combinação simultânea de múltiplos alertas críticos.
+
+## 6. Prompt Injection
+Tentativas de alterar o comportamento da IA foram bloqueadas pelos guardrails.
 
 ---
 
@@ -262,8 +325,6 @@ A solução pode operar em modelo híbrido entre setor público e privado.
 - agronegócio
 - seguradoras ambientais
 - centros privados de pesquisa climática
-
-A solução pode ser utilizada por instituições que necessitam de monitoramento contínuo e análise automatizada de dados ambientais.
 
 ---
 
@@ -305,6 +366,12 @@ A solução pode operar no formato SaaS (Software as a Service), fornecendo dado
 
 ---
 
+## Teste de guardrails
+
+![Guardrails contra prompt injection](assets/screenshot_guardrails.png)
+
+---
+
 # 🧠 System Prompt
 
 O system prompt utilizado está localizado em:
@@ -313,12 +380,13 @@ O system prompt utilizado está localizado em:
 prompts/system_prompt.md
 ```
 
-Ele define:
-- comportamento da IA
-- contexto espacial
-- impacto terrestre
-- formato das respostas
-- análise operacional
+O sistema utiliza:
+- thresholds operacionais
+- schema formal de telemetria
+- anti-hallucination
+- proteção contra prompt injection
+- validação contextual
+- política de prioridade operacional
 
 ---
 
@@ -329,6 +397,7 @@ Ele define:
 - O projeto não utiliza banco de dados.
 - A aplicação opera exclusivamente via terminal.
 - As respostas da IA podem variar dependendo do contexto da missão.
+- O sistema não realiza persistência histórica da telemetria.
 
 ---
 
@@ -358,13 +427,15 @@ Ele define:
 ```txt
 ❯ /status
 
-🌡️ Temperatura: 82°C
+🌡️ Temperatura: 88°C
+⚡ Energia: 14%
 📡 Comunicação: OFFLINE
 🔥 Focos térmicos: 13
 
 ⚠️ ALERTA CRÍTICO:
 - superaquecimento do payload
 - perda de comunicação
+- energia crítica
 - múltiplos focos térmicos
 ```
 

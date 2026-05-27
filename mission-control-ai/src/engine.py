@@ -21,7 +21,6 @@ def llm(prompt, system=None, max_tokens=800, temperature=0.3):
     messages = []
 
     if system:
-
         messages.append({
             "role": "system",
             "content": system
@@ -33,7 +32,6 @@ def llm(prompt, system=None, max_tokens=800, temperature=0.3):
     })
 
     try:
-
         response = client.chat(
             model=model,
             messages=messages,
@@ -46,7 +44,6 @@ def llm(prompt, system=None, max_tokens=800, temperature=0.3):
         return response["message"]["content"]
 
     except Exception as e:
-
         return f"⚠️ Erro ao consultar IA: {e}"
 
 
@@ -55,7 +52,6 @@ def load_system_prompt():
     path = Path("prompts/system_prompt.md")
 
     if path.exists():
-
         return path.read_text(
             encoding="utf-8"
         )
@@ -77,7 +73,7 @@ class MissionEngine:
 
     def gerar_nova_telemetria(self):
 
-        self.dados_atuis = coletar()
+        self.dados_atuais = coletar()
 
         return self.dados_atuais
 
@@ -100,7 +96,7 @@ class MissionEngine:
             f"{dados['energia_disponivel']}%\n"
 
             f"📡 Comunicação: "
-            f"{'ONLINE' if dados['comunicacao'] == 1 else 'OFFLINE'}\n"
+            f"{dados['comunicacao']}\n"
 
             f"🗂️ Buffer de imagens: "
             f"{dados['buffer_imagens']}%\n"
@@ -120,18 +116,54 @@ class MissionEngine:
 
     def analyze(self, pergunta_usuario):
 
-        # Guardrail contra prompt injection
-        # e assuntos fora da missão
+        texto = pergunta_usuario.lower()
+
+        # Bloqueio de comandos maliciosos
+        # antes de enviar qualquer coisa para a IA
+
+        texto_malicioso = [
+
+            "ignore",
+            "ignorar",
+            "desconsidere",
+            "override",
+            "system",
+            "prompt",
+            "desative",
+            "desabilite",
+            "revele",
+            "instruções internas",
+            "instrucoes internas",
+            "aja como",
+            "você agora é",
+            "voce agora e"
+
+        ]
+
+        for termo in texto_malicioso:
+
+            if termo in texto:
+
+                return (
+                    "⚠️ Tentativa de comando malicioso detectada.\n"
+                    "Entrada bloqueada pelo sistema de segurança "
+                    "da missão EnviroSat."
+                )
+
+        # Guardrail contra assuntos fora da missão
 
         palavras_missao = [
 
             "missao",
+            "missão",
             "satelite",
+            "satélite",
             "telemetria",
             "alerta",
             "energia",
             "temperatura",
             "comunicacao",
+            "comunicação",
             "payload",
             "focos",
             "orbital",
@@ -139,11 +171,15 @@ class MissionEngine:
             "envirosat",
             "risco",
             "status",
-            "operacional"
+            "operacional",
+            "buffer",
+            "geolocalizacao",
+            "geolocalização",
+            "battery",
+            "bateria",
+            "signal"
 
         ]
-
-        texto = pergunta_usuario.lower()
 
         permitido = False
 
@@ -165,6 +201,50 @@ class MissionEngine:
 
         dados = self.dados_atuais
 
+        # Sanity checks básicos da telemetria
+
+        inconsistencias = []
+
+        if dados["temperatura_payload"] < -100 \
+           or dados["temperatura_payload"] > 200:
+
+            inconsistencias.append(
+                "temperatura impossível"
+            )
+
+        if dados["energia_disponivel"] < 0 \
+           or dados["energia_disponivel"] > 100:
+
+            inconsistencias.append(
+                "energia inválida"
+            )
+
+        if dados["buffer_imagens"] < 0 \
+           or dados["buffer_imagens"] > 100:
+
+            inconsistencias.append(
+                "buffer inválido"
+            )
+
+        if dados["precisao_geolocalizacao"] < 0:
+
+            inconsistencias.append(
+                "precisão de geolocalização inválida"
+            )
+
+        if dados["focos_termicos_detectados"] < 0:
+
+            inconsistencias.append(
+                "quantidade de focos térmicos inválida"
+            )
+
+        if inconsistencias:
+
+            return (
+                "⚠️ Inconsistências detectadas na telemetria:\n- "
+                + "\n- ".join(inconsistencias)
+            )
+
         alertas = avaliar(dados)
 
         prompt = f"""
@@ -172,12 +252,12 @@ Pergunta do operador:
 {pergunta_usuario}
 
 Dados atuais da telemetria:
-- Temperatura: {dados['temperatura_payload']}°C
-- Energia: {dados['energia_disponivel']}%
-- Comunicação: {dados['comunicacao']}
-- Buffer de imagens: {dados['buffer_imagens']}%
-- Precisão geolocalização: {dados['precisao_geolocalizacao']} m
-- Focos térmicos: {dados['focos_termicos_detectados']}
+- temperatura_payload: {dados['temperatura_payload']}°C
+- energia_disponivel: {dados['energia_disponivel']}%
+- comunicacao: {dados['comunicacao']}
+- buffer_imagens: {dados['buffer_imagens']}%
+- precisao_geolocalizacao: {dados['precisao_geolocalizacao']} m
+- focos_termicos_detectados: {dados['focos_termicos_detectados']}
 
 Alertas detectados:
 {chr(10).join(alertas)}
