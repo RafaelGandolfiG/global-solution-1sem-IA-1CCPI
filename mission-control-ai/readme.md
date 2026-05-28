@@ -455,7 +455,7 @@ O sistema utiliza:
 
 # 🎬 Vídeo de demonstração
 
-🎥 https://www.youtube.com/watch?v=SEU_VIDEO
+🎥 https://youtu.be/FjgG8tyg9F8
 
 > Vídeo configurado como “Não listado”.
 
