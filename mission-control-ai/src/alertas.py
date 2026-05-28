@@ -1,54 +1,97 @@
 def avaliar(dados):
-    """Avalia os dados da missão e gera alertas."""
 
     alertas = []
 
-    # Temperatura crítica
+    temperatura = dados["temperatura_payload"]
+    energia = dados["energia_disponivel"]
+    comunicacao = dados["comunicacao"]
+    buffer = dados["buffer_imagens"]
+    precisao = dados["precisao_geolocalizacao"]
+    focos = dados["focos_termicos_detectados"]
 
-    if dados["temperatura_payload"] > 80:
+    # TEMPERATURA
+
+    if temperatura > 85:
 
         alertas.append(
             "🔥 ALERTA CRÍTICO: superaquecimento do payload."
         )
 
-    # Energia baixa
-
-    if dados["energia_disponivel"] < 20:
+    elif temperatura >= 71:
 
         alertas.append(
-            "⚡ ALERTA: energia abaixo do nível seguro."
+            "⚠️ WARNING: temperatura elevada do payload."
         )
 
-    # Falha de comunicação
+    # ENERGIA
 
-    if dados["comunicacao"] == 0:
+    if energia < 30:
+
+        alertas.append(
+            "⚡ ALERTA CRÍTICO: energia em nível crítico."
+        )
+
+    elif energia <= 60:
+
+        alertas.append(
+            "⚠️ WARNING: energia abaixo do ideal."
+        )
+
+    # COMUNICAÇÃO
+
+    if comunicacao == 0 \
+       or comunicacao == "OFFLINE":
 
         alertas.append(
             "📡 ALERTA: perda de comunicação com o satélite."
         )
 
-    # Buffer cheio
+    # BUFFER
 
-    if dados["buffer_imagens"] > 85:
-
-        alertas.append(
-            "🛰️ ALERTA: buffer de imagens próximo do limite."
-        )
-
-    # Muitos focos térmicos
-
-    if dados["focos_termicos_detectados"] > 10:
+    if buffer > 90:
 
         alertas.append(
-            "🌳 ALERTA AMBIENTAL: múltiplos focos térmicos detectados."
+            "🗂️ ALERTA CRÍTICO: buffer próximo do limite."
         )
 
-    # Sem alertas
+    elif buffer >= 71:
+
+        alertas.append(
+            "⚠️ WARNING: buffer de imagens elevado."
+        )
+
+    # GEOLOCALIZAÇÃO
+
+    if precisao > 15:
+
+        alertas.append(
+            "📍 ALERTA: baixa precisão geolocalização."
+        )
+
+    elif precisao > 5:
+
+        alertas.append(
+            "⚠️ WARNING: precisão geolocalização moderada."
+        )
+
+    # FOCOS TÉRMICOS
+
+    if focos > 10:
+
+        alertas.append(
+            "🔥 ALERTA AMBIENTAL: múltiplos focos térmicos detectados."
+        )
+
+    elif focos >= 4:
+
+        alertas.append(
+            "⚠️ WARNING: focos térmicos acima do normal."
+        )
 
     if len(alertas) == 0:
 
         alertas.append(
-            "✅ Missão operando normalmente."
+            "✅ Nenhum alerta crítico detectado."
         )
 
     return alertas

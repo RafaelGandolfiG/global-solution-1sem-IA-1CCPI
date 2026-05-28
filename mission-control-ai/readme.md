@@ -1,6 +1,6 @@
 # 🚀 Mission Control AI — EnviroSat Guardian
 
-Sistema inteligente de monitoramento espacial com IA generativa para análise de telemetria ambiental da missão EnviroSat.
+Sistema inteligente de monitoramento espacial com IA generativa para análise operacional da missão EnviroSat.
 
 ---
 
@@ -12,25 +12,26 @@ Sistema inteligente de monitoramento espacial com IA generativa para análise de
 
 ---
 
-# 🌳 O que o projeto faz
+# 🌎 O que o projeto faz
 
-O Mission Control AI é uma plataforma de monitoramento espacial desenvolvida em Python para simular operações de um satélite ambiental da trilha EnviroSat.
+O Mission Control AI é um sistema de monitoramento espacial desenvolvido em Python para simular operações de um satélite ambiental da trilha EnviroSat.
 
-O sistema coleta dados simulados de telemetria, identifica situações críticas automaticamente e utiliza Inteligência Artificial com o modelo llama3.1 via Ollama para interpretar riscos operacionais da missão.
+A solução coleta dados simulados de telemetria, identifica falhas operacionais automaticamente e utiliza Inteligência Artificial com o modelo llama3.1 via Ollama Local para interpretar riscos da missão.
 
-A IA é capaz de:
-- analisar falhas críticas
-- explicar impactos terrestres
-- recomendar ações operacionais
-- auxiliar operadores em tempo real
+O sistema:
+- monitora parâmetros críticos;
+- detecta alertas automaticamente;
+- gera análises contextualizadas;
+- recomenda ações operacionais;
+- protege contra prompt injection e uso indevido da IA.
 
 ---
 
 # 🛰️ Persona atendida
 
-O sistema foi desenvolvido para auxiliar operadores espaciais e engenheiros responsáveis pelo monitoramento de satélites ambientais.
+O sistema foi desenvolvido para operadores espaciais, engenheiros de missão e equipes de monitoramento ambiental responsáveis pelo acompanhamento operacional de satélites ambientais.
 
-A solução também pode apoiar equipes de monitoramento climático e órgãos ambientais responsáveis pela identificação de incêndios florestais e riscos ambientais.
+A solução também pode auxiliar órgãos ambientais no monitoramento de incêndios florestais e riscos ambientais.
 
 ---
 
@@ -49,6 +50,19 @@ A solução também pode apoiar equipes de monitoramento climático e órgãos a
 - rich
 - prompt-toolkit
 - pyfiglet
+
+---
+
+# 🧠 Arquitetura utilizada
+
+O projeto utiliza Ollama Local com o modelo llama3.1 executado localmente.
+
+Diferente da arquitetura baseada em Ollama Cloud apresentada nos exemplos iniciais da disciplina, o grupo optou por execução local visando:
+- independência de APIs externas;
+- menor custo operacional;
+- facilidade de testes;
+- maior controle do ambiente;
+- maior estabilidade durante demonstrações.
 
 ---
 
@@ -123,7 +137,7 @@ pip install -r requirements.txt
 
 ## 4. Configure o arquivo `.env`
 
-Crie um arquivo `.env` na raiz do projeto:
+Crie um arquivo `.env` na raiz:
 
 ```env
 OLLAMA_HOST=http://localhost:11434
@@ -152,52 +166,51 @@ python main.py
 
 ✅ Simulação de telemetria espacial
 
-✅ Monitoramento ambiental da missão
-
 ✅ Alertas automáticos
 
 ✅ Integração com IA generativa
 
 ✅ Interface CLI interativa
 
+✅ Análise contextualizada da missão
+
 ✅ Geração dinâmica de cenários
-
-✅ Análise contextualizada por IA
-
-✅ Recomendações operacionais
-
-✅ Banner ASCII personalizado
 
 ✅ Guardrails contra prompt injection
 
+✅ Anti-hallucination
+
+✅ Versionamento de prompts
+
 ✅ Validação operacional da telemetria
+
+✅ Bloqueio de assuntos fora da missão
 
 ---
 
 # 📊 Telemetria monitorada
 
 O sistema monitora:
-
-- temperatura do payload
-- energia disponível
-- comunicação orbital
-- buffer de imagens
-- precisão geolocalização
-- focos térmicos
+- temperatura do payload;
+- energia disponível;
+- comunicação orbital;
+- buffer de imagens;
+- precisão geolocalização;
+- focos térmicos ambientais.
 
 ---
 
 # 🚨 Sistema de alertas
 
 O sistema identifica automaticamente:
+- superaquecimento;
+- energia crítica;
+- perda de comunicação;
+- buffer elevado;
+- baixa precisão geolocalização;
+- múltiplos focos térmicos.
 
-- superaquecimento
-- perda de comunicação
-- energia crítica
-- buffer elevado
-- múltiplos focos térmicos
-
-O sistema também utiliza níveis de severidade:
+Também são utilizados níveis de severidade:
 - INFO
 - WARNING
 - CRITICAL
@@ -207,94 +220,104 @@ O sistema também utiliza níveis de severidade:
 # 🤖 Inteligência Artificial
 
 O projeto utiliza o modelo llama3.1 via Ollama Local para:
-
-- interpretar os dados da missão
-- analisar riscos operacionais
-- gerar respostas contextualizadas
-- recomendar ações corretivas
-- explicar impactos terrestres
+- interpretar telemetria;
+- analisar riscos operacionais;
+- recomendar ações corretivas;
+- explicar impactos terrestres;
+- auxiliar operadores da missão.
 
 ---
 
-## Justificativa da escolha do modelo llama3.1
+# 🧠 Justificativa da escolha do modelo llama3.1
 
-O modelo llama3.1 foi escolhido por oferecer boa capacidade de interpretação contextual, geração de respostas estruturadas e integração simples com o Ollama Local.
+O modelo llama3.1 foi escolhido por apresentar:
+- boa interpretação contextual;
+- respostas estruturadas;
+- integração simples com Python;
+- funcionamento local via Ollama;
+- baixo custo operacional.
 
-A utilização do llama3.1 permitiu executar o sistema localmente sem dependência de APIs pagas externas, facilitando o desenvolvimento, testes e demonstrações do projeto.
-
-Além disso, o modelo apresentou desempenho satisfatório na análise de telemetria espacial, interpretação de alertas críticos e geração de recomendações operacionais contextualizadas.
-
-Outro fator importante foi a facilidade de integração com Python através da biblioteca Ollama, permitindo comunicação direta entre o sistema de monitoramento e a IA generativa.
+A utilização local do modelo também permitiu:
+- independência de APIs externas;
+- maior estabilidade durante testes;
+- execução offline;
+- maior controle da arquitetura do sistema.
 
 ---
 
 # 🧪 Evolução dos prompts
 
-O projeto utiliza versionamento de prompts para demonstrar a evolução da engenharia de prompt aplicada ao sistema.
+O projeto utiliza versionamento de prompts para demonstrar evolução da engenharia de prompt aplicada ao sistema.
 
 ## system_prompt_v1.md
 Versão inicial contendo:
-- papel básico da IA
-- contexto da missão
-- estrutura de resposta
+- papel básico da IA;
+- contexto da missão;
+- estrutura simples de resposta.
 
 ## system_prompt_v2.md
 Versão intermediária adicionando:
-- thresholds operacionais
-- níveis de severidade
-- guardrails básicos
-- redução de hallucination
+- thresholds operacionais;
+- severidade;
+- guardrails básicos;
+- redução de hallucination.
 
 ## system_prompt_v3.md
 Versão final contendo:
-- schema formal da telemetria
-- anti prompt injection
-- proteção contra telemetria maliciosa
-- política de prioridade operacional
-- tratamento de inconsistências
-- regras anti-hallucination
-- restrições de domínio
+- schema formal da telemetria;
+- anti prompt injection;
+- anti role-switch;
+- anti-hallucination;
+- proteção contra telemetria maliciosa;
+- política de prioridade operacional;
+- tratamento de inconsistências;
+- restrições de domínio.
 
-O arquivo `system_prompt.md` utiliza a versão final mais robusta do sistema.
+O arquivo `system_prompt.md` utiliza a versão final do sistema.
 
 ---
 
 # 🔐 Segurança e guardrails
 
 O projeto implementa mecanismos de segurança para reduzir:
-- prompt injection
-- hallucination
-- mudança indevida de contexto
-- telemetria maliciosa
-- sobrescrita de regras operacionais
+- prompt injection;
+- jailbreak;
+- hallucination;
+- mudança indevida de contexto;
+- sobrescrita de instruções;
+- telemetria maliciosa.
 
 O sistema:
-- bloqueia assuntos fora da missão
-- ignora instruções maliciosas
-- valida inconsistências na telemetria
-- impede respostas fora do domínio EnviroSat
+- bloqueia assuntos externos;
+- detecta comandos maliciosos;
+- valida inconsistências;
+- restringe domínio operacional;
+- ignora instruções embutidas na telemetria.
 
 ---
 
 # 🧪 Cenários de teste demonstrados
 
 ## 1. Operação normal
-Todos os parâmetros dentro do nível seguro.
+Todos os parâmetros dentro da faixa segura.
 
 ## 2. Superaquecimento crítico
 Temperatura acima do limite operacional.
 
 ## 3. Falha de comunicação
-Satélite operando sem contato com a estação terrestre.
+Satélite operando sem contato orbital.
 
 ## 4. Incêndio ambiental
 Múltiplos focos térmicos detectados.
 
 ## 5. Falha crítica geral
-Combinação simultânea de múltiplos alertas críticos.
+Combinação simultânea de múltiplos alertas.
 
 ## 6. Prompt Injection
-Tentativas de alterar o comportamento da IA foram bloqueadas pelos guardrails.
+Tentativas de alterar comportamento da IA foram bloqueadas.
+
+## 7. Role Switching
+Tentativas de transformar a IA em chatbot casual foram bloqueadas.
 
 ---
 
@@ -304,9 +327,7 @@ Tentativas de alterar o comportamento da IA foram bloqueadas pelos guardrails.
 
 O projeto auxilia no monitoramento ambiental e na detecção rápida de incêndios florestais através da análise automatizada de telemetria espacial.
 
-A missão EnviroSat permite identificar focos térmicos, falhas operacionais e riscos ambientais de forma contínua, contribuindo para redução de danos ambientais e resposta mais rápida de equipes responsáveis pelo combate a incêndios.
-
-Além disso, o sistema pode apoiar operações de preservação ambiental e monitoramento climático em áreas críticas.
+A missão EnviroSat permite identificar focos térmicos, falhas operacionais e riscos ambientais de forma contínua.
 
 ---
 
@@ -318,37 +339,29 @@ A solução pode operar em modelo híbrido entre setor público e privado.
 - INPE
 - IBAMA
 - Defesa Civil
-- órgãos ambientais estaduais
+- órgãos ambientais
 
 ### Setor privado
-- empresas de monitoramento ambiental
 - agronegócio
-- seguradoras ambientais
-- centros privados de pesquisa climática
+- monitoramento ambiental
+- seguradoras
+- pesquisa climática
 
 ---
 
 ## 3. Métrica de impacto
 
-Se o satélite operar de forma saudável durante 1 ano, a missão poderá auxiliar no monitoramento contínuo de mais de 50 mil hectares de áreas ambientais e reduzir significativamente o tempo de resposta em incêndios florestais.
-
-A solução pode contribuir para:
-- detecção antecipada de focos de incêndio
-- redução de danos ambientais
-- melhoria da tomada de decisão operacional
-- monitoramento ambiental contínuo em regiões críticas
+Se o satélite operar de forma saudável durante 1 ano, a missão poderá auxiliar no monitoramento contínuo de mais de 50 mil hectares ambientais e reduzir significativamente o tempo de resposta em incêndios florestais.
 
 ---
 
 ## 4. Modelo de negócio
 
-O modelo proposto é baseado em:
-- monitoramento como serviço
-- assinatura de dados ambientais
-- integração com plataformas ambientais
-- análise orbital inteligente via IA
-
-A solução pode operar no formato SaaS (Software as a Service), fornecendo dados ambientais, alertas automatizados e análises inteligentes para órgãos públicos e empresas privadas.
+O modelo proposto utiliza:
+- monitoramento como serviço;
+- assinatura de dados ambientais;
+- análise orbital inteligente via IA;
+- plataforma SaaS.
 
 ---
 
@@ -356,37 +369,38 @@ A solução pode operar no formato SaaS (Software as a Service), fornecendo dado
 
 ## Status crítico da missão
 
-![Status crítico da missão](assets/screenshot_status.png)
+![Status crítico](assets/screenshot_status.png)
 
 ---
 
-## Análise da IA sobre a missão
+## Análise contextual da IA
 
-![Análise da IA](assets/screenshot_alerta.png)
+![Análise IA](assets/screenshot_alerta.png)
 
 ---
 
 ## Teste de guardrails
 
-![Guardrails contra prompt injection](assets/screenshot_guardrails.png)
+![Guardrails](assets/screenshot_guardrails.png)
 
 ---
 
 # 🧠 System Prompt
 
-O system prompt utilizado está localizado em:
+O system prompt utilizado está em:
 
 ```txt
 prompts/system_prompt.md
 ```
 
 O sistema utiliza:
-- thresholds operacionais
-- schema formal de telemetria
-- anti-hallucination
-- proteção contra prompt injection
-- validação contextual
-- política de prioridade operacional
+- thresholds operacionais;
+- schema formal;
+- severidade operacional;
+- anti-hallucination;
+- anti prompt injection;
+- política de prioridade;
+- validação contextual.
 
 ---
 
@@ -394,10 +408,9 @@ O sistema utiliza:
 
 - O sistema utiliza dados simulados.
 - Não existe conexão com satélites reais.
-- O projeto não utiliza banco de dados.
-- A aplicação opera exclusivamente via terminal.
-- As respostas da IA podem variar dependendo do contexto da missão.
-- O sistema não realiza persistência histórica da telemetria.
+- Não há persistência em banco de dados.
+- A aplicação funciona exclusivamente via terminal.
+- O sistema não possui histórico persistente de telemetria.
 
 ---
 
@@ -405,7 +418,7 @@ O sistema utiliza:
 
 🎥 https://www.youtube.com/watch?v=SEU_VIDEO
 
-> Vídeo configurado como "Não listado".
+> Vídeo configurado como “Não listado”.
 
 ---
 
@@ -413,12 +426,12 @@ O sistema utiliza:
 
 | Comando | Função |
 |---|---|
-| `/help` | Lista comandos disponíveis |
-| `/status` | Exibe telemetria atual |
+| `/help` | Lista comandos |
+| `/status` | Exibe telemetria |
 | `/novo` | Gera novo cenário |
 | `/about` | Informações do projeto |
-| `/clear` | Limpa o terminal |
-| `/exit` | Encerra o sistema |
+| `/clear` | Limpa terminal |
+| `/exit` | Encerra sistema |
 
 ---
 
@@ -445,5 +458,3 @@ O sistema utiliza:
 
 Global Solution 2026.1 — FIAP  
 Prompt Engineering and AI
-
----
