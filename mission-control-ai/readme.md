@@ -16,11 +16,11 @@ Sistema inteligente de monitoramento espacial com IA generativa para análise op
 
 O Mission Control AI é um sistema de monitoramento espacial desenvolvido em Python para simular operações de um satélite ambiental da trilha EnviroSat.
 
-A solução coleta dados simulados de telemetria, identifica falhas operacionais automaticamente e utiliza Inteligência Artificial com o modelo llama3.1 via Ollama Local para interpretar riscos da missão.
+O sistema coleta dados simulados de telemetria, identifica falhas operacionais automaticamente e utiliza Inteligência Artificial com o modelo llama3.1 via Ollama Local para interpretar riscos da missão.
 
-O sistema:
+A solução:
 - monitora parâmetros críticos;
-- detecta alertas automaticamente;
+- identifica alertas automaticamente;
 - gera análises contextualizadas;
 - recomenda ações operacionais;
 - protege contra prompt injection e uso indevido da IA.
@@ -31,7 +31,7 @@ O sistema:
 
 O sistema foi desenvolvido para operadores espaciais, engenheiros de missão e equipes de monitoramento ambiental responsáveis pelo acompanhamento operacional de satélites ambientais.
 
-A solução também pode auxiliar órgãos ambientais no monitoramento de incêndios florestais e riscos ambientais.
+A solução também pode auxiliar órgãos ambientais responsáveis pelo monitoramento de incêndios florestais e riscos ambientais.
 
 ---
 
@@ -61,8 +61,8 @@ Diferente da arquitetura baseada em Ollama Cloud apresentada nos exemplos inicia
 - independência de APIs externas;
 - menor custo operacional;
 - facilidade de testes;
-- maior controle do ambiente;
-- maior estabilidade durante demonstrações.
+- maior estabilidade durante demonstrações;
+- maior controle do ambiente.
 
 ---
 
@@ -172,19 +172,21 @@ python main.py
 
 ✅ Interface CLI interativa
 
+✅ Geração dinâmica de cenários
+
 ✅ Análise contextualizada da missão
 
-✅ Geração dinâmica de cenários
+✅ Versionamento de prompts
 
 ✅ Guardrails contra prompt injection
 
 ✅ Anti-hallucination
 
-✅ Versionamento de prompts
-
 ✅ Validação operacional da telemetria
 
 ✅ Bloqueio de assuntos fora da missão
+
+✅ Detecção de telemetria maliciosa
 
 ---
 
@@ -217,6 +219,39 @@ Também são utilizados níveis de severidade:
 
 ---
 
+# 📈 Thresholds operacionais
+
+## Temperatura do payload
+- NORMAL: até 70°C
+- WARNING: 71°C até 85°C
+- CRITICAL: acima de 85°C
+
+## Energia disponível
+- NORMAL: acima de 60%
+- WARNING: entre 30% e 60%
+- CRITICAL: abaixo de 30%
+
+## Comunicação
+- NORMAL: ONLINE
+- CRITICAL: OFFLINE
+
+## Buffer de imagens
+- NORMAL: até 70%
+- WARNING: 71% até 90%
+- CRITICAL: acima de 90%
+
+## Precisão geolocalização
+- NORMAL: até 5m
+- WARNING: entre 5m e 15m
+- CRITICAL: acima de 15m
+
+## Focos térmicos
+- NORMAL: até 3
+- WARNING: 4 até 10
+- CRITICAL: acima de 10
+
+---
+
 # 🤖 Inteligência Artificial
 
 O projeto utiliza o modelo llama3.1 via Ollama Local para:
@@ -239,15 +274,15 @@ O modelo llama3.1 foi escolhido por apresentar:
 
 A utilização local do modelo também permitiu:
 - independência de APIs externas;
-- maior estabilidade durante testes;
 - execução offline;
-- maior controle da arquitetura do sistema.
+- maior estabilidade durante testes;
+- maior controle do ambiente do sistema.
 
 ---
 
 # 🧪 Evolução dos prompts
 
-O projeto utiliza versionamento de prompts para demonstrar evolução da engenharia de prompt aplicada ao sistema.
+O projeto utiliza versionamento de prompts para demonstrar a evolução da engenharia de prompt aplicada ao sistema.
 
 ## system_prompt_v1.md
 Versão inicial contendo:
@@ -273,7 +308,7 @@ Versão final contendo:
 - tratamento de inconsistências;
 - restrições de domínio.
 
-O arquivo `system_prompt.md` utiliza a versão final do sistema.
+O arquivo `system_prompt.md` utiliza a versão final mais robusta do sistema.
 
 ---
 
@@ -292,7 +327,8 @@ O sistema:
 - detecta comandos maliciosos;
 - valida inconsistências;
 - restringe domínio operacional;
-- ignora instruções embutidas na telemetria.
+- ignora instruções embutidas na telemetria;
+- impede vazamento de instruções internas.
 
 ---
 
@@ -319,6 +355,9 @@ Tentativas de alterar comportamento da IA foram bloqueadas.
 ## 7. Role Switching
 Tentativas de transformar a IA em chatbot casual foram bloqueadas.
 
+## 8. Telemetria maliciosa
+Instruções escondidas em payloads foram detectadas e ignoradas.
+
 ---
 
 # 🌎 Proposta de valor / modelo de negócio
@@ -327,7 +366,7 @@ Tentativas de transformar a IA em chatbot casual foram bloqueadas.
 
 O projeto auxilia no monitoramento ambiental e na detecção rápida de incêndios florestais através da análise automatizada de telemetria espacial.
 
-A missão EnviroSat permite identificar focos térmicos, falhas operacionais e riscos ambientais de forma contínua.
+A missão EnviroSat permite identificar focos térmicos, falhas operacionais e riscos ambientais continuamente.
 
 ---
 
@@ -440,16 +479,19 @@ O sistema utiliza:
 ```txt
 ❯ /status
 
-🌡️ Temperatura: 88°C
-⚡ Energia: 14%
-📡 Comunicação: OFFLINE
-🔥 Focos térmicos: 13
+🌡️ Temperatura: 91°C
+⚡ Energia: 30%
+📡 Comunicação: ONLINE
+🗂️ Buffer de imagens: 82%
+📍 Precisão geolocalização: 7.14 m
+🔥 Focos térmicos: 11
 
-⚠️ ALERTA CRÍTICO:
-- superaquecimento do payload
-- perda de comunicação
-- energia crítica
-- múltiplos focos térmicos
+⚠️ ALERTAS:
+- ALERTA CRÍTICO: superaquecimento do payload.
+- WARNING: energia abaixo do ideal.
+- WARNING: buffer de imagens elevado.
+- WARNING: precisão geolocalização moderada.
+- ALERTA AMBIENTAL: múltiplos focos térmicos detectados.
 ```
 
 ---
