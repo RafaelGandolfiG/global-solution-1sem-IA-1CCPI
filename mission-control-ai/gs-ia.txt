@@ -1,0 +1,9 @@
+Nome completo e RM de todos os integrantes:
+- Rafael Gandolfi Gonçalves — RM: 569036
+- Guilherme Miranda — RM: 573107
+- Carlos Eduardo — RM: 572949
+
+Modalidade: trio
+
+Link do repositório GitHub: https://github.com/RafaelGandolfiG/global-solution-1sem-IA-1CCPI.git
+Link do vídeo de demonstração: https://youtu.be/FjgG8tyg9F8
